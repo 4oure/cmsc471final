@@ -1,14 +1,90 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Project</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Anatomy of a Scoring Drive</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Hello, project scaffold</h1>
-  <p>This is a starter index.html file.</p>
-  <script src="js/main.js"></script>
+
+<header>
+  <h1>The Anatomy of a Scoring Drive</h1>
+  <p>2025 NFL Season — Play-by-play drive explorer</p>
+</header>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <span>Loading play-by-play data…</span>
+</div>
+
+<div id="controls">
+  <div class="ctrl-group">
+    <label>Team</label>
+    <select id="sel-team"></select>
+  </div>
+  <div class="ctrl-group">
+    <label>Week</label>
+    <select id="sel-week"></select>
+  </div>
+  <div class="ctrl-group">
+    <label>Game</label>
+    <select id="sel-game"></select>
+  </div>
+  <div class="ctrl-group">
+    <label>Drive</label>
+    <select id="sel-drive"></select>
+  </div>
+  <button id="btn-load">Load Drive</button>
+</div>
+
+<div id="main">
+
+  <div id="left">
+    <div id="drive-header">
+      <div id="drive-title">Select a drive above</div>
+      <div id="drive-meta"></div>
+    </div>
+    <div id="play-log"></div>
+    <div id="scrubber-wrap"></div>
+  </div>
+
+  <div id="right">
+    <div id="empty-state">Load a drive to begin exploring</div>
+
+    <div id="play-card" style="display:none">
+      <div id="play-situation"></div>
+      <div id="play-description"></div>
+      <div id="play-tags"></div>
+      <div id="epa-explain" style="font-size:0.78rem;margin-top:8px;line-height:1.5;"></div>
+    </div>
+
+    <div id="stat-row" style="display:none">
+      <div class="stat-card"><div class="stat-val" id="s-epa">—</div><div class="stat-lbl">Cumul. EPA</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-yds">—</div><div class="stat-lbl">Yards gained</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-wp">—</div><div class="stat-lbl">Win prob.</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-result">—</div><div class="stat-lbl">Drive result</div></div>
+    </div>
+
+    <div id="charts-row" style="display:none">
+      <div class="chart-box" id="field-box">
+        <div class="chart-title">Field position</div>
+        <svg id="field-svg" class="chart"></svg>
+      </div>
+      <div class="chart-box">
+        <div class="chart-title">Expected Points Added (EPA) per play</div>
+        <svg id="epa-svg" class="chart"></svg>
+      </div>
+      <div class="chart-box">
+        <div class="chart-title">Win probability</div>
+        <svg id="wp-svg" class="chart"></svg>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
