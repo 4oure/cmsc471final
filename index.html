@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Anatomy of a Scoring Drive</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/visualizations.css">
+  <link rel="stylesheet" href="css/story-mode.css">
 </head>
 <body>
 
@@ -36,6 +38,34 @@
     <select id="sel-drive"></select>
   </div>
   <button id="btn-load">Load Drive</button>
+  <button id="btn-story" class="btn-story-prominent" style="display: none;">📖 Story Mode</button>
+</div>
+
+<div id="story-modal" style="display: none;">
+  <div id="story-container">
+    <button id="story-close" class="story-close-btn">✕</button>
+    
+    <div id="story-header">
+      <h2 id="story-title"></h2>
+      <p id="story-meta"></p>
+      <div id="story-progress"></div>
+    </div>
+    
+    <div id="story-play-viewer">
+      <div id="story-play-number"></div>
+      <div id="story-situation"></div>
+      <div id="story-field" style="margin: 1.5rem 0;"></div>
+      <div id="story-description"></div>
+      <div id="story-epa-box"></div>
+      <div id="story-stats"></div>
+    </div>
+    
+    <div id="story-nav">
+      <button id="story-prev">← Previous</button>
+      <span id="story-counter"></span>
+      <button id="story-next">Next →</button>
+    </div>
+  </div>
 </div>
 
 <div id="main">
@@ -85,6 +115,9 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/visualizations.js"></script>
+<script src="js/story-mode.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
