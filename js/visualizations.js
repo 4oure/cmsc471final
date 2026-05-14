@@ -59,11 +59,13 @@ function updateField(animate) {
 
 // ── EPA VISUALIZATION ──
 let epaSvg, epaG, epaX, epaY, epaIW, epaIH;
-const epaM = {t:12, r:10, b:20, l:36};
+const epaM = {t:12, r:10, b:30, l:36};
 
 function initEPA() {
   const el = document.getElementById("epa-svg");
-  const W = el.clientWidth || 260, H = el.clientHeight || 130;
+  const box = el.closest(".chart-box");
+  const W = el.clientWidth || 260;
+  const H = (box ? box.clientHeight - 30 : 0) || 150; // subtract title height
   epaIW = W - epaM.l - epaM.r; epaIH = H - epaM.t - epaM.b;
   epaSvg = d3.select("#epa-svg").attr("viewBox",`0 0 ${W} ${H}`);
   epaSvg.selectAll("*").remove();
@@ -129,11 +131,12 @@ function updateEPA(animate) {
 
 // ── WIN PROBABILITY VISUALIZATION ──
 let wpSvg, wpG, wpX, wpY, wpIW, wpIH, wpPath, wpArea, wpDot;
-const wpM = {t:10, r:10, b:20, l:36};
-
+const wpM = {t:10, r:10, b:30, l:36};
 function initWP() {
   const el = document.getElementById("wp-svg");
-  const W = el.clientWidth || 260, H = el.clientHeight || 130;
+  const box = el.closest(".chart-box");
+  const W = el.clientWidth || 260;
+  const H = (box ? box.clientHeight - 30 : 0) || 150;
   wpIW = W-wpM.l-wpM.r; wpIH = H-wpM.t-wpM.b;
   wpX  = d3.scaleLinear().domain([0,1]).range([0,wpIW]);
   wpY  = d3.scaleLinear().domain([0,1]).range([wpIH,0]);

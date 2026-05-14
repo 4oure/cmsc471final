@@ -5,16 +5,18 @@
   gap: 1rem;
   flex: 1;
   min-height: 0;
+  overflow: hidden;
 }
 
 .chart-box {
   background: #111;
   border: 1px solid #1e1e1e;
   border-radius: 8px;
-  padding: 0.75rem 1rem 0.5rem;
+  padding: 0.75rem 1rem 0.85rem;
   display: flex;
   flex-direction: column;
   min-height: 0;
+  overflow: hidden;
 }
 
 .chart-title {
@@ -26,10 +28,10 @@
   flex-shrink: 0;
 }
 
-svg.chart { 
-  flex: 1; 
-  width: 100%; 
-  overflow: visible; 
+svg.chart {
+  flex: 1;
+  width: 100%;
+  overflow: visible;
 }
 
 #field-box { 
@@ -37,9 +39,6 @@ svg.chart {
 }
 
 /* ── FIELD VISUALIZATION ── */
-#field-svg {
-  background: none;
-}
 
 .field-dot {
   pointer-events: none;

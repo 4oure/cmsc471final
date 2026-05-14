@@ -2,12 +2,25 @@ let allDrives = [];
 let currentDrive = null;
 let currentStep = 0;
 
+// ── METRICS COLLAPSE TOGGLE ──
+document.getElementById("metrics-toggle").addEventListener("click", () => {
+  const content = document.getElementById("metrics-content");
+  const chevron = document.getElementById("metrics-chevron");
+  const isOpen = content.classList.contains("open");
+  content.classList.toggle("open", !isOpen);
+  chevron.classList.toggle("open", !isOpen);
+  // Re-measure charts in case layout shifted
+  if (currentDrive) {
+    requestAnimationFrame(() => { initEPA(); initWP(); renderStep(false); });
+  }
+});
+
 // ── LOAD DATA ──
 d3.json("data/pbp_2025.json").then(data => {
   allDrives = data;
   document.getElementById("loading").style.display = "none";
   document.getElementById("controls").style.display = "flex";
-  document.getElementById("main").style.display = "grid";
+  document.getElementById("main").style.cssText = "display: grid; flex: 1; min-height: 0; overflow: hidden;";
   buildTeamSelect();
 }).catch(err => {
   document.getElementById("loading").innerHTML =
@@ -107,8 +120,11 @@ function renderDrive() {
   document.getElementById("charts-row").style.display   = "grid";
   buildScrubber();
   buildPlayLog();
-  initField(); initEPA(); initWP();
-  renderStep(false);
+  initField();
+  requestAnimationFrame(() => {
+    initEPA(); initWP();
+    renderStep(false);
+  });
 }
 
 // ── SCRUBBER ──
