@@ -33,7 +33,6 @@ https://www.nflfastr.com/
 
 The included dataset focuses on the 2025 NFL regular season play-by-play data and organizes plays by game, team, and drive.
 
-
 ##Contributions
 
 - Gavin Harmon: Significant JS programming, created mockup, added story mode
