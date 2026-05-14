@@ -3,7 +3,7 @@ const storyNarratives = {
   "2025_01_BAL_BUF_4": [
     { narrative: "The Ravens need to respond. Starting from their own 15-yard line, Baltimore faces a critical moment — establish the run game, control the line, and show they're a threat." },
     { narrative: "Derrick Henry bursts through the right guard for <span class='story-highlight'>11 yards</span>, immediately setting a physical tone. The power game is here." },
-    { narrative: "After settling in, Jackson unleashes Zay Flowers deep down the right sideline for <span class='story-highlight'>20 yards</span>. An explosive play that is devastating for the Buffalo Defense." },
+    { narrative: "After settling in, Jackson unleashes Zay Flowers deep down the right sideline for <span class='story-highlight'>20 yards</span>. Sudden, explosive, devastating." },
     { narrative: "The Ravens try to punch it up the middle with Henry. He gets <span class='story-highlight'>stuffed for 2 yards</span>. Buffalo's defense shows they can dig in." },
     { narrative: "Third-and-3: Jackson goes to Rashod Bateman underneath for <span class='story-highlight'>5 yards</span>. Smart football — not flashy, but the drive stays alive." },
     { narrative: "Facing third-and-3 again, Lamar Jackson scrambles for <span class='story-highlight'>17 yards</span> up the left sideline. MVP moment — creating his own magic." },
@@ -81,7 +81,7 @@ function renderStoryMode() {
   renderStoryField();
   
   // Narrative description
-  let desc = narratives && narratives[storyStep + 1] ? narratives[storyStep + 1].narrative : p.desc;
+  let desc = narratives && narratives[storyStep] ? narratives[storyStep].narrative : p.desc;
   document.getElementById("story-description").innerHTML = desc;
   
   // EPA box
