@@ -4,11 +4,11 @@ const DURATION = 350;
 
 function initField() {
   const el = document.getElementById("field-svg");
-  const W = el.clientWidth || 520, H = 90;
+  const W = Math.max(el.clientWidth || 520, 100), H = 90;
   fieldX = d3.scaleLinear().domain([0, 100]).range([20, W-20]);
   fieldSvg = d3.select("#field-svg").attr("viewBox", `0 0 ${W} ${H}`);
   fieldSvg.selectAll("*").remove();
-  fieldSvg.append("rect").attr("x",20).attr("y",10).attr("width",W-40).attr("height",60)
+  fieldSvg.append("rect").attr("x",20).attr("y",10).attr("width",Math.max(W-40,1)).attr("height",60)
     .attr("fill","#c8e6c9").attr("rx",3).attr("stroke","#2e7d32").attr("stroke-width",1);
   [10,20,30,40,50,60,70,80,90].forEach(yd => {
     fieldSvg.append("line").attr("x1",fieldX(yd)).attr("y1",10).attr("x2",fieldX(yd)).attr("y2",70)
@@ -64,9 +64,10 @@ const epaM = {t:12, r:10, b:30, l:36};
 function initEPA() {
   const el = document.getElementById("epa-svg");
   const box = el.closest(".chart-box");
-  const W = el.clientWidth || 260;
-  const H = (box ? box.clientHeight - 30 : 0) || 150; // subtract title height
-  epaIW = W - epaM.l - epaM.r; epaIH = H - epaM.t - epaM.b;
+  const W = Math.max(el.clientWidth || 260, 100);
+  const H = Math.max((box ? box.clientHeight - 30 : 0), 120);
+  epaIW = Math.max(W - epaM.l - epaM.r, 1);
+  epaIH = Math.max(H - epaM.t - epaM.b, 1);
   epaSvg = d3.select("#epa-svg").attr("viewBox",`0 0 ${W} ${H}`);
   epaSvg.selectAll("*").remove();
   epaG = epaSvg.append("g").attr("transform",`translate(${epaM.l},${epaM.t})`);
@@ -88,7 +89,7 @@ function updateEPA(animate) {
   const bw = Math.max(4, epaIW / plays.length - 2);
   epaX = d3.scaleLinear()
     .domain([0, Math.max(plays.length - 1, 1)])
-    .range([bw / 2, epaIW - bw / 2]);
+    .range([bw / 2, Math.max(epaIW - bw / 2, bw / 2 + 1)]);
   epaY = d3.scaleLinear().domain([ext[0]-yPad, ext[1]+yPad]).range([epaIH, 0]);
   epaG.select(".epa-zero").transition().duration(dur).attr("y1",epaY(0)).attr("y2",epaY(0));
   const ticks = [-4,-3,-2,-1,0,1,2,3,4].filter(v => v >= ext[0]-yPad && v <= ext[1]+yPad);
@@ -97,16 +98,16 @@ function updateEPA(animate) {
     .attr("x",-4).attr("text-anchor","end").attr("font-size",8).attr("fill","#334155")
     .transition().duration(dur).attr("y", v => epaY(v)+4).text(v => v>0?"+"+v:v);
   yLabels.exit().remove();
-  //const bw = Math.max(4, epaIW/plays.length - 2);
   const revData = plays.map((p,i) => ({...p,idx:i})).filter(p => p.idx <= currentStep && p.epa !== null);
   const bars = epaG.selectAll(".epa-bar").data(revData, d => d.idx);
   bars.enter().append("rect").attr("class","epa-bar")
-    .attr("x", d => epaX(d.idx)-bw/2).attr("y",epaY(0)).attr("width",bw).attr("height",0).attr("rx",2)
+    .attr("x", d => epaX(d.idx)-bw/2).attr("y",epaY(0)).attr("width",Math.max(bw,0)).attr("height",0).attr("rx",2)
     .attr("fill", d => d.epa>=0?"#4caf50":"#ef5350").attr("opacity",0.3)
     .merge(bars).transition().duration(dur).ease(d3.easeCubicOut)
     .attr("x", d => epaX(d.idx)-bw/2)
     .attr("y", d => d.epa>=0 ? epaY(d.epa) : epaY(0))
-    .attr("height", d => Math.abs(epaY(d.epa)-epaY(0)))
+    .attr("width", Math.max(bw, 0))
+    .attr("height", d => Math.max(0, Math.abs(epaY(d.epa)-epaY(0))))
     .attr("fill", d => d.epa>=0?"#4caf50":"#ef5350")
     .attr("opacity", d => d.idx===currentStep ? 1 : 0.35);
   bars.exit().transition().duration(dur).attr("height",0).attr("y",epaY(0)).remove();
@@ -132,12 +133,14 @@ function updateEPA(animate) {
 // ── WIN PROBABILITY VISUALIZATION ──
 let wpSvg, wpG, wpX, wpY, wpIW, wpIH, wpPath, wpArea, wpDot;
 const wpM = {t:10, r:10, b:30, l:36};
+
 function initWP() {
   const el = document.getElementById("wp-svg");
   const box = el.closest(".chart-box");
-  const W = el.clientWidth || 260;
-  const H = (box ? box.clientHeight - 30 : 0) || 150;
-  wpIW = W-wpM.l-wpM.r; wpIH = H-wpM.t-wpM.b;
+  const W = Math.max(el.clientWidth || 260, 100);
+  const H = Math.max((box ? box.clientHeight - 30 : 0), 120);
+  wpIW = Math.max(W - wpM.l - wpM.r, 1);
+  wpIH = Math.max(H - wpM.t - wpM.b, 1);
   wpX  = d3.scaleLinear().domain([0,1]).range([0,wpIW]);
   wpY  = d3.scaleLinear().domain([0,1]).range([wpIH,0]);
   wpSvg = d3.select("#wp-svg").attr("viewBox",`0 0 ${W} ${H}`);
@@ -164,7 +167,7 @@ function updateWP(animate) {
   const rev   = plays.map((p,i) => ({...p,idx:i})).filter(p => p.idx <= currentStep && p.wp !== null);
   if (rev.length < 1) return;
   const dur = animate ? DURATION : 0;
-  wpX = d3.scaleLinear().domain([0, plays.length-1]).range([0, wpIW]);
+  wpX = d3.scaleLinear().domain([0, Math.max(plays.length-1, 1)]).range([0, wpIW]);
   const lineGen = d3.line().x(d => wpX(d.idx)).y(d => wpY(d.wp)).curve(d3.curveMonotoneX);
   const areaGen = d3.area().x(d => wpX(d.idx)).y0(wpIH).y1(d => wpY(d.wp)).curve(d3.curveMonotoneX);
   wpPath.transition().duration(dur).ease(d3.easeCubicOut).attr("d", lineGen(rev));
