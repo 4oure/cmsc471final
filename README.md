@@ -35,6 +35,7 @@ The included dataset focuses on the 2025 NFL regular season play-by-play data an
 
 
 ##Contributions
-Gavin Harmon: Significant JS programming, created mockup, added story mode
 
-Colin Wakefield: Category description/organization, html polishing, boundary polishing, created oral write up
+- Gavin Harmon: Significant JS programming, created mockup, added story mode
+- Colin Wakefield: Category description/organization, html polishing, boundary polishing, created oral write up
+- James Mollet: Wrote project proposal, got feedback at proposal and milestone labs, changed formatting from dark to light for readability 
