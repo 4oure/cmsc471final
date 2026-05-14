@@ -134,7 +134,7 @@ function renderStoryField() {
   
   const s = d3.select("#story-field svg");
   s.append("rect").attr("x", 15).attr("y", 20).attr("width", 570).attr("height", 60)
-    .attr("fill", "#0d1f0d").attr("stroke", "#1a3a1a").attr("stroke-width", 1);
+    .attr("fill", "#c8e6c9").attr("stroke", "#2e7d32").attr("stroke-width", 1);
   
   const x = d3.scaleLinear().domain([0, 100]).range([30, 585]);
   
@@ -142,12 +142,12 @@ function renderStoryField() {
     if (p.yardline_100 === null) return;
     const px = x(100 - p.yardline_100);
     s.append("circle").attr("cx", px).attr("cy", 50).attr("r", i === plays.length - 1 ? 6 : 3)
-      .attr("fill", i === plays.length - 1 ? "#4a9eff" : "#2a5a8a").attr("opacity", i === plays.length - 1 ? 1 : 0.6);
+      .attr("fill", i === plays.length - 1 ? "#1565c0" : "#42a5f5").attr("opacity", i === plays.length - 1 ? 1 : 0.6);
     
     if (i > 0 && plays[i-1].yardline_100 !== null) {
       const px2 = x(100 - plays[i-1].yardline_100);
       s.append("line").attr("x1", px2).attr("y1", 50).attr("x2", px).attr("y2", 50)
-        .attr("stroke", "#2a6aaa").attr("stroke-width", 1.5).attr("opacity", 0.5);
+        .attr("stroke", "#1565c0").attr("stroke-width", 1.5).attr("opacity", 0.55);
     }
   });
 }

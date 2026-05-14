@@ -210,8 +210,8 @@ function buildPlayLog() {
     const div = document.createElement("div");
     div.className = "play-item" + (i > currentStep ? " future" : "");
     div.dataset.index = i;
-    const epaColor  = p.epa === null ? "#555" : p.epa > 0 ? "#4caf50" : "#ef5350";
-    const dotColor  = p.play_type === "pass" ? "#4a9eff" : p.play_type === "run" ? "#66aa66" : "#888";
+    const epaColor  = p.epa === null ? "#64748b" : p.epa > 0 ? "#4caf50" : "#ef5350";
+    const dotColor  = p.play_type === "pass" ? "#1565c0" : p.play_type === "run" ? "#2e7d32" : "#64748b";
     const dnLabel   = p.down ? `${p.down} & ${p.ydstogo}` : "—";
     const shortDesc = p.desc.length > 45 ? p.desc.slice(0, 45) + "…" : p.desc;
     const epaLabel  = p.epa !== null ? (p.epa > 0 ? "+" : "") + p.epa.toFixed(2) : "—";

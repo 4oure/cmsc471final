@@ -9,23 +9,23 @@ function initField() {
   fieldSvg = d3.select("#field-svg").attr("viewBox", `0 0 ${W} ${H}`);
   fieldSvg.selectAll("*").remove();
   fieldSvg.append("rect").attr("x",20).attr("y",10).attr("width",W-40).attr("height",60)
-    .attr("fill","#0d1f0d").attr("rx",3).attr("stroke","#1a3a1a").attr("stroke-width",1);
+    .attr("fill","#c8e6c9").attr("rx",3).attr("stroke","#2e7d32").attr("stroke-width",1);
   [10,20,30,40,50,60,70,80,90].forEach(yd => {
     fieldSvg.append("line").attr("x1",fieldX(yd)).attr("y1",10).attr("x2",fieldX(yd)).attr("y2",70)
-      .attr("stroke","#1e3a1e").attr("stroke-width",0.5);
+      .attr("stroke","#81c784").attr("stroke-width",0.5);
   });
   [10,20,30,40,50].forEach(yd => {
     const label = yd <= 50 ? yd : 100-yd;
     fieldSvg.append("text").attr("x",fieldX(yd)).attr("y",83)
-      .attr("text-anchor","middle").attr("font-size",8).attr("fill","#2a5a2a").text(label);
+      .attr("text-anchor","middle").attr("font-size",8).attr("fill","#1b4332").text(label);
     fieldSvg.append("text").attr("x",fieldX(100-yd)).attr("y",83)
-      .attr("text-anchor","middle").attr("font-size",8).attr("fill","#2a5a2a").text(label);
+      .attr("text-anchor","middle").attr("font-size",8).attr("fill","#1b4332").text(label);
   });
-  fieldSvg.append("rect").attr("x",0).attr("y",10).attr("width",20).attr("height",60).attr("fill","#0a150a");
-  fieldSvg.append("rect").attr("x",W-20).attr("y",10).attr("width",20).attr("height",60).attr("fill","#1a0a0a");
+  fieldSvg.append("rect").attr("x",0).attr("y",10).attr("width",20).attr("height",60).attr("fill","#a5d6a7");
+  fieldSvg.append("rect").attr("x",W-20).attr("y",10).attr("width",20).attr("height",60).attr("fill","#ffccbc");
   fieldG = fieldSvg.append("g").attr("class","field-plays");
   fieldSvg.append("text").attr("id","field-pos-label").attr("y",7)
-    .attr("text-anchor","middle").attr("font-size",9).attr("fill","#4a9eff");
+    .attr("text-anchor","middle").attr("font-size",9).attr("fill","#1565c0");
 }
 
 function updateField(animate) {
@@ -37,7 +37,7 @@ function updateField(animate) {
     fieldG.append("line").attr("class","field-connector")
       .attr("x1",yl2x(plays[i-1].yardline_100)).attr("y1",40)
       .attr("x2",yl2x(plays[i].yardline_100)).attr("y2",40)
-      .attr("stroke","#2a6aaa").attr("stroke-width",1.5).attr("opacity",0.5);
+      .attr("stroke","#1565c0").attr("stroke-width",1.5).attr("opacity",0.55);
   }
   const dots = fieldG.selectAll(".field-dot").data(plays, (d,i) => i);
   dots.enter().append("circle").attr("class","field-dot")
@@ -45,7 +45,7 @@ function updateField(animate) {
     .merge(dots).transition().duration(dur).ease(d3.easeCubicOut)
     .attr("cx", d => yl2x(d.yardline_100))
     .attr("r",  (d,i) => i === plays.length-1 ? 7 : 4)
-    .attr("fill",(d,i) => i === plays.length-1 ? "#4a9eff" : "#2a5a8a")
+    .attr("fill",(d,i) => i === plays.length-1 ? "#1565c0" : "#42a5f5")
     .attr("opacity",(d,i) => i === plays.length-1 ? 1 : 0.6);
   dots.exit().transition().duration(dur).attr("r",0).remove();
   const last = plays[plays.length-1];
@@ -71,9 +71,9 @@ function initEPA() {
   epaSvg.selectAll("*").remove();
   epaG = epaSvg.append("g").attr("transform",`translate(${epaM.l},${epaM.t})`);
   epaG.append("line").attr("class","epa-axis-y").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",epaIH)
-    .attr("stroke","#2a2a2a").attr("stroke-width",0.5);
+    .attr("stroke","#94a3b8").attr("stroke-width",0.75);
   epaG.append("line").attr("class","epa-zero").attr("x1",0).attr("x2",epaIW)
-    .attr("stroke","#333").attr("stroke-width",1);
+    .attr("stroke","#64748b").attr("stroke-width",1);
   epaG.append("g").attr("class","epa-ylabels");
   epaG.append("g").attr("class","epa-tooltip");
 }
@@ -94,7 +94,7 @@ function updateEPA(animate) {
   const ticks = [-4,-3,-2,-1,0,1,2,3,4].filter(v => v >= ext[0]-yPad && v <= ext[1]+yPad);
   const yLabels = epaG.select(".epa-ylabels").selectAll("text").data(ticks);
   yLabels.enter().append("text").merge(yLabels)
-    .attr("x",-4).attr("text-anchor","end").attr("font-size",8).attr("fill","#444")
+    .attr("x",-4).attr("text-anchor","end").attr("font-size",8).attr("fill","#334155")
     .transition().duration(dur).attr("y", v => epaY(v)+4).text(v => v>0?"+"+v:v);
   yLabels.exit().remove();
   //const bw = Math.max(4, epaIW/plays.length - 2);
@@ -144,19 +144,19 @@ function initWP() {
   wpSvg.selectAll("*").remove();
   wpG = wpSvg.append("g").attr("transform",`translate(${wpM.l},${wpM.t})`);
   wpG.append("line").attr("x1",0).attr("y1",wpIH).attr("x2",wpIW).attr("y2",wpIH)
-    .attr("stroke","#2a2a2a").attr("stroke-width",0.5);
+    .attr("stroke","#94a3b8").attr("stroke-width",0.75);
   wpG.append("line").attr("x1",0).attr("y1",0).attr("x2",0).attr("y2",wpIH)
-    .attr("stroke","#2a2a2a").attr("stroke-width",0.5);
+    .attr("stroke","#94a3b8").attr("stroke-width",0.75);
   wpG.append("line").attr("x1",0).attr("y1",wpY(0.5)).attr("x2",wpIW).attr("y2",wpY(0.5))
-    .attr("stroke","#2a2a2a").attr("stroke-width",1).attr("stroke-dasharray","3,3");
+    .attr("stroke","#cbd5e1").attr("stroke-width",1).attr("stroke-dasharray","3,3");
   [0, 0.5, 1].forEach(v => {
     wpG.append("text").attr("x",-4).attr("y",wpY(v)+4)
-      .attr("text-anchor","end").attr("font-size",8).attr("fill","#444")
+      .attr("text-anchor","end").attr("font-size",8).attr("fill","#334155")
       .text((v*100).toFixed(0)+"%");
   });
-  wpArea = wpG.append("path").attr("fill","#4a9eff").attr("opacity",0.08);
-  wpPath = wpG.append("path").attr("fill","none").attr("stroke","#4a9eff").attr("stroke-width",1.5);
-  wpDot  = wpG.append("circle").attr("r",4).attr("fill","#4a9eff");
+  wpArea = wpG.append("path").attr("fill","#1565c0").attr("opacity",0.12);
+  wpPath = wpG.append("path").attr("fill","none").attr("stroke","#1565c0").attr("stroke-width",1.5);
+  wpDot  = wpG.append("circle").attr("r",4).attr("fill","#1565c0");
 }
 
 function updateWP(animate) {
