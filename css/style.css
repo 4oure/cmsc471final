@@ -426,7 +426,7 @@ select:focus { outline: none; border-color: #4a9eff; }
   border-radius: 8px;
   padding: 0.7rem 0.9rem;
 }
-.stat-val { font-size: 1.3rem; font-weight: 600; color: #fff; }
+.stat-val { font-size: 1.3rem; font-weight: 600; color: #fff; word-break: break-word; }
 .stat-lbl {
   font-size: 0.68rem;
   color: #555;
