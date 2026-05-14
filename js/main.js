@@ -103,6 +103,7 @@ function renderDrive() {
   document.getElementById("empty-state").style.display  = "none";
   document.getElementById("play-card").style.display    = "block";
   document.getElementById("stat-row").style.display     = "grid";
+  document.getElementById("metrics-info").style.display = "block";
   document.getElementById("charts-row").style.display   = "grid";
   buildScrubber();
   buildPlayLog();

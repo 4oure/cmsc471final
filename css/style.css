@@ -328,6 +328,45 @@ select:focus { outline: none; border-color: #4a9eff; }
 .tag-pass { background: #1e1e2a; color: #8888cc; }
 .tag-run  { background: #1e2a1e; color: #66aa66; }
 
+#metrics-info {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.metrics-title {
+  font-size: 0.68rem;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.65rem;
+}
+
+.metric-explain {
+  display: grid;
+  grid-template-columns: 115px 1fr;
+  gap: 10px;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  padding: 0.45rem 0;
+  border-top: 1px solid #1e1e1e;
+}
+
+.metric-explain:first-of-type {
+  border-top: none;
+}
+
+.metric-explain strong {
+  color: #e8e8e8;
+  font-weight: 600;
+}
+
+.metric-explain span {
+  color: #888;
+}
+
 /* ── STAT CARDS ── */
 #stat-row {
   display: grid;

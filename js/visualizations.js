@@ -83,7 +83,10 @@ function updateEPA(animate) {
   const dur = animate ? DURATION : 0;
   const ext = d3.extent(allValid, p => p.epa);
   const yPad = Math.max(0.8, (ext[1]-ext[0])*0.25);
-  epaX = d3.scaleLinear().domain([0, Math.max(plays.length-1,1)]).range([0, epaIW]);
+  const bw = Math.max(4, epaIW / plays.length - 2);
+  epaX = d3.scaleLinear()
+    .domain([0, Math.max(plays.length - 1, 1)])
+    .range([bw / 2, epaIW - bw / 2]);
   epaY = d3.scaleLinear().domain([ext[0]-yPad, ext[1]+yPad]).range([epaIH, 0]);
   epaG.select(".epa-zero").transition().duration(dur).attr("y1",epaY(0)).attr("y2",epaY(0));
   const ticks = [-4,-3,-2,-1,0,1,2,3,4].filter(v => v >= ext[0]-yPad && v <= ext[1]+yPad);
@@ -92,7 +95,7 @@ function updateEPA(animate) {
     .attr("x",-4).attr("text-anchor","end").attr("font-size",8).attr("fill","#444")
     .transition().duration(dur).attr("y", v => epaY(v)+4).text(v => v>0?"+"+v:v);
   yLabels.exit().remove();
-  const bw = Math.max(4, epaIW/plays.length - 2);
+  //const bw = Math.max(4, epaIW/plays.length - 2);
   const revData = plays.map((p,i) => ({...p,idx:i})).filter(p => p.idx <= currentStep && p.epa !== null);
   const bars = epaG.selectAll(".epa-bar").data(revData, d => d.idx);
   bars.enter().append("rect").attr("class","epa-bar")
